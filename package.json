@@ -26,7 +26,9 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1",
+    "react-responsive-carousel": "^3.2.23",
     "stripe": "^11.9.0",
+    "swiper": "^9.0.3",
     "typescript": "4.9.5"
   },
   "devDependencies": {
