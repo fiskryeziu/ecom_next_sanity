@@ -17,15 +17,18 @@ const Carousel = ({ item }: { item: Iitems }) => {
       className="relative flex h-screen justify-center items-center"
       id="anchor"
     >
-      <div className="flex flex-col items-start pl-40 gap-6" id="drop">
+      <div
+        className="flex flex-col items-start pl-10 md:pl-20 lg:pl-40 gap-6"
+        id="drop"
+      >
         <p
-          className="text-5xl font-bold text-left w-1/2"
+          className="font-bold text-left  md:w-1/2 text-3xl md:text-4xl lg:text-5xl "
           style={{ '--order': 1 } as React.CSSProperties}
         >
-          {item.title}
+          {item.title.slice(0, 10)}
         </p>
         <p
-          className="text-left w-1/2"
+          className=" text-left md:w-1/2 text-xs md:text-sm lg:text-base"
           style={{ '--order': 2 } as React.CSSProperties}
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint quo qui
@@ -39,7 +42,7 @@ const Carousel = ({ item }: { item: Iitems }) => {
           1,200$
         </p>
         <button
-          className="px-7 py-3 bg-black text-white"
+          className="px-5 py-2 md:px-7 md:py-3 bg-black text-white"
           style={{ '--order': 4 } as React.CSSProperties}
         >
           View Collection
@@ -51,7 +54,7 @@ const Carousel = ({ item }: { item: Iitems }) => {
         width={200}
         height={200}
         ref={imgRef}
-        className="absolute right-20 rounded-full object-cover w-72 h-72"
+        className="absolute bottom-6 md:bottom-auto right-4  lg:right-20 rounded-full object-cover w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72"
         style={{ '--order': 5 } as React.CSSProperties}
       />
     </div>

@@ -25,7 +25,6 @@ const Banner = () => {
   const { items } = data
   return (
     <Swiper
-      spaceBetween={50}
       effect={'fade'}
       fadeEffect={{
         crossFade: true,
@@ -37,7 +36,6 @@ const Banner = () => {
       touchStartPreventDefault={true}
       loop={true}
       autoplay={{ delay: 9000 }}
-      draggable={false}
     >
       {items.map((item, idx) => (
         <SwiperSlide key={item.id} id="slider">
