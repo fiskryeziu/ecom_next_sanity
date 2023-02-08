@@ -1,22 +1,39 @@
 import { useEffect } from 'react'
-const useMove = (ref) => {
+const useOnMouseMove = (ref) => {
   useEffect(() => {
-    const anchor = document.getElementById('anchor')
+    const sliders = document.querySelectorAll('#slider')
 
-    const updateMousePosition = (e) => {
-      const valueX = (e.pageX * -0.2) / 12
-      const valueY = (e.pageY * -0.2) / 12
-
-      if (ref) {
-        ref.current.style.transform =
-          'translate3d(' + valueX + 'px,' + valueY + 'px,0) '
+    // const updateMousePosition = (e) => {
+    //   const valueX = (e.pageX * -0.2) / 12
+    //   const valueY = (e.pageY * -0.2) / 12
+    //   if (ref.current !== null) {
+    //     ref.current.style.transform =
+    //       'translate3d(' + valueX + 'px,' + valueY + 'px,0) '
+    //   }
+    // }
+    // anchor.addEventListener('mousemove', updateMousePosition)
+    for (let i = 0; i <= sliders.length; i++) {
+      if (sliders[i]) {
+        sliders[i].addEventListener('mousemove', (e) => {
+          if (ref.current !== null) {
+            const valueX = (e.pageX * -0.2) / 12
+            const valueY = (e.pageY * -0.2) / 12
+            ref.current.style.transform =
+              'translate3d(' + valueX + 'px,' + valueY + 'px,0) '
+          }
+        })
       }
     }
-
-    anchor.addEventListener('mousemove', updateMousePosition)
     return () => {
-      anchor.removeEventListener('mousemove', updateMousePosition)
+      console.log('hehe')
+      for (let i = 0; i <= sliders.length; i++) {
+        if (sliders[i]) {
+          sliders[i].removeEventListener('mousemove', () => {
+            console.log('removed')
+          })
+        }
+      }
     }
   }, [])
 }
-export default useMove
+export default useOnMouseMove

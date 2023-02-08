@@ -1,31 +1,39 @@
 {
-    "items": {
-        "elastic": [
-            {
-                "id": 1,
-                "title": "Photoshoots",
-                "imageUrl": "https://res.cloudinary.com/kizmelvin/image/upload/v1645530542/kizmelvin/Carousel%20assets/luwadlin-bosman-J1oObe7WWjk-unsplash_f56oh3.jpg"
-            },
-            {
-                "id": 2,
-                "title": "Adventure",
-                "imageUrl": "https://res.cloudinary.com/kizmelvin/image/upload/v1645529949/kizmelvin/Carousel%20assets/ali-kazal-q9rpNOd1hcI-unsplash_fhaqzq.jpg"
-            },
-            {
-                "id": 3,
-                "title": "Events",
-                "imageUrl": "https://res.cloudinary.com/kizmelvin/image/upload/v1645530199/kizmelvin/Carousel%20assets/slim-emcee-jzdOX0XkXr8-unsplash_zocsdq.jpg"
-            },
-            {
-                "id": 4,
-                "title": "Discovery",
-                "imageUrl": "https://res.cloudinary.com/kizmelvin/image/upload/v1645530863/kizmelvin/Carousel%20assets/francisco-t-santos-YRcioOWh4mA-unsplash_1_yoowse.jpg"
-            },
-            {
-                "id": 5,
-                "title": "Sports",
-                "imageUrl": "https://res.cloudinary.com/kizmelvin/image/upload/v1645531100/kizmelvin/Carousel%20assets/markus-spiske-WUehAgqO5hE-unsplash_zi9wvh.jpg"
-            }
-        ]
-    }
+    "items": [
+        {
+            "albumId": 1,
+            "id": 1,
+            "title": "accusamus beatae ad facilis cum similique qui sunt",
+            "url": "https://via.placeholder.com/600/92c952",
+            "thumbnailUrl": "https://via.placeholder.com/150/92c952"
+        },
+        {
+            "albumId": 1,
+            "id": 2,
+            "title": "reprehenderit est deserunt velit ipsam",
+            "url": "https://via.placeholder.com/600/771796",
+            "thumbnailUrl": "https://via.placeholder.com/150/771796"
+        },
+        {
+            "albumId": 1,
+            "id": 3,
+            "title": "officia porro iure quia iusto qui ipsa ut modi",
+            "url": "https://via.placeholder.com/600/24f355",
+            "thumbnailUrl": "https://via.placeholder.com/150/24f355"
+        },
+        {
+            "albumId": 1,
+            "id": 4,
+            "title": "culpa odio esse rerum omnis laboriosam voluptate repudiandae",
+            "url": "https://via.placeholder.com/600/d32776",
+            "thumbnailUrl": "https://via.placeholder.com/150/d32776"
+        },
+        {
+            "albumId": 1,
+            "id": 5,
+            "title": "natus nisi omnis corporis facere molestiae rerum in",
+            "url": "https://via.placeholder.com/600/f66b97",
+            "thumbnailUrl": "https://via.placeholder.com/150/f66b97"
+        }
+    ]
 }

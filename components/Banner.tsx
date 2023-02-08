@@ -1,51 +1,50 @@
 import Image from 'next/image'
 import React, { useRef } from 'react'
-import { Carousel } from 'react-responsive-carousel'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import useOnMouseMove from '../hooks/useOnMouseMove'
+import SwiperCore, {
+  EffectFade,
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Autoplay,
+} from 'swiper'
+import 'swiper/swiper-bundle.css'
+SwiperCore.use([EffectFade, Navigation, Pagination, Scrollbar, A11y, Autoplay])
+import { Swiper, SwiperSlide } from 'swiper/react'
+import Carousel from './Carousel'
+import data from '../public/data.json'
 
+//fix on swiper js for mouse events
+// For me, just adding this touchStartPreventDefault: false
+//  on Swiper options solved my issues with "mousedown" and "mouseup".
 const Banner = () => {
-  const imgRef = useRef<HTMLImageElement>(null)
+  // const imgRef = useRef<HTMLImageElement>(null)
+  // useOnMouseMove(imgRef)
+
+  const { items } = data
   return (
-    <Carousel
-      infiniteLoop={true}
-      dynamicHeight={true}
-      // interval={1000}
-      // autoPlay={true}
-      showArrows={false}
-      showStatus={false}
-      showThumbs={false}
+    <Swiper
+      spaceBetween={50}
+      effect={'fade'}
+      fadeEffect={{
+        crossFade: true,
+      }}
+      slidesPerView={1}
+      modules={[Pagination, EffectFade]}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
+      touchStartPreventDefault={true}
+      loop={true}
+      autoplay={{ delay: 9000 }}
+      draggable={false}
     >
-      {[1, 2, 3, 4].map((_, idx) => (
-        <div
-          key={idx}
-          className="flex h-screen justify-center items-center"
-          id="anchor"
-        >
-          <div className="leftBox">
-            <p className="text-5xl font-bold text-left">
-              Lorem ipsum dolor sit amet.
-            </p>
-            <p className="text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint quo
-              qui esse adipisci consectetur necessitatibus temporibus labore?
-              Hic, commodi eum.
-            </p>
-            <p className="text-3xl font-bold text-left">1,200$</p>
-            <button className="px-7 py-3 bg-black text-white">
-              View Collection
-            </button>
-          </div>
-          <div className="rightBox">
-            <img
-              src="https://images.pexels.com/photos/14930425/pexels-photo-14930425.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
-              alt="hello there"
-              ref={imgRef}
-              className="rounded-full object-cover w-32"
-            />
-          </div>
-        </div>
+      {items.map((item, idx) => (
+        <SwiperSlide key={item.id} id="slider">
+          <Carousel item={item} />
+        </SwiperSlide>
       ))}
-    </Carousel>
+    </Swiper>
   )
 }
 export default Banner
