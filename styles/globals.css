@@ -11,9 +11,11 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-#drop p,
-button,
-img {
+#drop #carouselTitle,
+#carouselPrice,
+#carouselDesc,
+#carouselBtn,
+#carouselImg {
     opacity: 0;
     animation: dropIn 9s;
     animation-timing-function: ease-in;

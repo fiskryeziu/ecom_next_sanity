@@ -22,12 +22,14 @@ const Carousel = ({ item }: { item: Iitems }) => {
         id="drop"
       >
         <p
+          id="carouselTitle"
           className="font-bold text-left  md:w-1/2 text-3xl md:text-4xl lg:text-5xl "
           style={{ '--order': 1 } as React.CSSProperties}
         >
           {item.title.slice(0, 10)}
         </p>
         <p
+          id="carouselDesc"
           className=" text-left md:w-1/2 text-xs md:text-sm lg:text-base"
           style={{ '--order': 2 } as React.CSSProperties}
         >
@@ -36,12 +38,14 @@ const Carousel = ({ item }: { item: Iitems }) => {
           commodi eum.
         </p>
         <p
+          id="carouselPrice"
           className="text-3xl font-bold text-left"
           style={{ '--order': 3 } as React.CSSProperties}
         >
           1,200$
         </p>
         <button
+          id="carouselBtn"
           className="px-5 py-2 md:px-7 md:py-3 bg-black text-white"
           style={{ '--order': 4 } as React.CSSProperties}
         >
@@ -50,6 +54,7 @@ const Carousel = ({ item }: { item: Iitems }) => {
       </div>
       <Image
         src={item.url}
+        id="carouselImg"
         alt="watch"
         width={200}
         height={200}
