@@ -1,5 +1,6 @@
 import Banner from '@/components/Banner'
 import Card from '@/components/Card'
+import InfoSection from '@/components/InfoSection'
 import TopBrands from '@/components/TopBrands'
 import Watches from '@/components/Watches'
 import { IProduct } from '@/typings'
@@ -22,7 +23,7 @@ export default function Home({ product }: { product: IProduct[] }) {
         </div>
       </div>
       <TopBrands />
-      {/* <InfoSection/> */}
+      <InfoSection />
       {/* <States/> */}
     </>
   )
