@@ -8,11 +8,11 @@ const InfoSection = () => {
       <div className="flex basis-1/2 justify-center">
         <Image src={img} alt="" className=" w-96 h-full object-cover" />
       </div>
-      <div className="flex flex-col basis-1/2 items-start justify-center gap-6">
-        <p className="text-4xl font-bold w-3/4 text-slate-800">
+      <div className="flex flex-col basis-1/2 items-center md:items-start justify-center gap-6">
+        <p className="text-4xl font-bold w-3/4 text-slate-800 text-center md:text-left">
           Lorem ipsum dolor sit amet.
         </p>
-        <p className="text-slate-500 w-3/4">
+        <p className="text-slate-500 w-3/4 text-center md:text-left">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque,
           velit deserunt eius voluptatem impedit sint.
         </p>
