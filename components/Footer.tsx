@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-col md:flex-row items-center py-12  border-b mx-20 border-slate-900">
-        <p className="text-4xl font-extrabold">Watches.</p>
-        <div className="flex mx-auto gap-20">
+        <p className="text-4xl font-extrabold pb-10 md:pb-0">Watches.</p>
+        <div className="flex flex-col md:flex-row mx-auto gap-10 items-center md:items-start">
           <p>Home</p>
           <p>Products</p>
           <p>About Us</p>
@@ -26,7 +26,7 @@ const Footer = () => {
             <FaGithub size={20} />
           </a>
         </div>
-        <p>© 2023 Copyright. Developed by fiskryeziu</p>
+        <p className="text-center">© 2023 Copyright. Developed by fiskryeziu</p>
       </div>
     </div>
   )
