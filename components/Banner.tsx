@@ -13,16 +13,9 @@ import 'swiper/swiper-bundle.css'
 SwiperCore.use([EffectFade, Navigation, Pagination, Scrollbar, A11y, Autoplay])
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Carousel from './Carousel'
-import data from '../public/data.json'
+import { IBanner } from '@/typings'
 
-//fix on swiper js for mouse events
-// For me, just adding this touchStartPreventDefault: false
-//  on Swiper options solved my issues with "mousedown" and "mouseup".
-const Banner = () => {
-  // const imgRef = useRef<HTMLImageElement>(null)
-  // useOnMouseMove(imgRef)
-
-  const { items } = data
+const Banner = ({ data }: { data: IBanner[] }) => {
   return (
     <Swiper
       effect={'fade'}
@@ -37,8 +30,8 @@ const Banner = () => {
       loop={true}
       autoplay={{ delay: 9000 }}
     >
-      {items.map((item, idx) => (
-        <SwiperSlide key={item.id} id="slider">
+      {data.map((item) => (
+        <SwiperSlide key={item._id} id="slider">
           <Carousel item={item} />
         </SwiperSlide>
       ))}

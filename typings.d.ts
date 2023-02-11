@@ -10,3 +10,15 @@ export interface IProduct {
     image: string[]
 
 }
+export interface IBanner {
+    _id: string,
+    name: string,
+    slug: {
+        current: string
+    }
+    desc: string,
+    price: number,
+    image: string
+
+
+}

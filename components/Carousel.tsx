@@ -1,15 +1,10 @@
+import { urlFor } from '@/lib/client'
+import { IBanner } from '@/typings'
 import Image from 'next/image'
 import React, { useRef } from 'react'
 import useOnMouseMove from '../hooks/useOnMouseMove'
 
-interface Iitems {
-  albumId: number
-  id: number
-  title: string
-  url: string
-  thumbnailUrl: string
-}
-const Carousel = ({ item }: { item: Iitems }) => {
+const Carousel = ({ item }: { item: IBanner }) => {
   const imgRef = useRef<HTMLImageElement>(null)
   useOnMouseMove(imgRef)
   return (
@@ -26,23 +21,21 @@ const Carousel = ({ item }: { item: Iitems }) => {
           className="font-bold text-left  md:w-1/2 text-3xl md:text-4xl lg:text-5xl "
           style={{ '--order': 1 } as React.CSSProperties}
         >
-          {item.title.slice(0, 10)}
+          {item.name}
         </p>
         <p
           id="carouselDesc"
           className=" text-left md:w-1/2 text-xs md:text-sm lg:text-base"
           style={{ '--order': 2 } as React.CSSProperties}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint quo qui
-          esse adipisci consectetur necessitatibus temporibus labore? Hic,
-          commodi eum.
+          {item.desc}
         </p>
         <p
           id="carouselPrice"
           className="text-3xl font-bold text-left"
           style={{ '--order': 3 } as React.CSSProperties}
         >
-          1,200$
+          ${item.price}
         </p>
         <button
           id="carouselBtn"
@@ -52,14 +45,15 @@ const Carousel = ({ item }: { item: Iitems }) => {
           View Collection
         </button>
       </div>
+
       <Image
-        src={item.url}
+        src={urlFor(item.image).url()}
         id="carouselImg"
         alt="watch"
-        width={200}
-        height={200}
+        width={300}
+        height={300}
         ref={imgRef}
-        className="absolute bottom-6 md:bottom-auto right-4  lg:right-20 rounded-full object-cover w-40 h-40 sm:w-60 sm:h-60 md:w-72 md:h-72"
+        className="absolute bottom-6 md:bottom-auto right-4  lg:right-20 rounded-full object-cover w-40  sm:w-60 md:w-72"
         style={{ '--order': 5 } as React.CSSProperties}
       />
     </div>
