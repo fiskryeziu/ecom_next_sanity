@@ -24,7 +24,6 @@ export default function Home({ product }: { product: IProduct[] }) {
       </div>
       <TopBrands />
       <InfoSection />
-      {/* <States/> */}
     </>
   )
 }
