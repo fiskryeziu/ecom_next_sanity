@@ -15,7 +15,6 @@ export default function Home({
   product: IProduct[]
   banner: IBanner[]
 }) {
-  console.log(banner)
   return (
     <>
       <Banner data={banner} />
