@@ -2,22 +2,26 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import product from '../public/assets/watchproduct.jpg'
 import { FaShoppingBasket } from 'react-icons/fa'
+import { IProduct } from '@/typings'
+import { urlFor } from '@/lib/client'
 
-const Card = () => {
+const Card = ({ product }: { product: IProduct }) => {
   const [show, setShow] = useState(false)
   return (
-    <div className="relative flex w-full md:w-1/4 max-h-80 overflow-hidden items-center justify-center border group">
+    <div className="relative flex w-full md:w-1/4 max-h-80 overflow-hidden items-center justify-center group border-t md:border">
       <div className="flex flex-col gap-1 w-56">
         <div className="w-full h-56">
           <Image
-            src={product}
+            src={urlFor(product.image[0]).url()}
             alt="trending-watch"
+            width={250}
+            height={250}
             className="w-full h-full object-cover"
           />
         </div>
         <p className="text-slate-400 text-xs">Watch</p>
-        <p className="text-sm font-medium">Nice Leather Watch</p>
-        <p className="text-right font-semibold">$200</p>
+        <p className="text-sm font-medium line-clamp-1">{product.name}</p>
+        <p className="text-right font-semibold ">${product.price}</p>
         <div className="w-full z-40 cursor-pointer flex  gap-2 justify-center invisible -translate-y-10 transition-transform ease  duration-300 group-hover:visible group-hover:translate-y-0">
           <FaShoppingBasket size={16} className="text-slate-400" />
           <p className="text-slate-400 text-sm">Add to cart</p>

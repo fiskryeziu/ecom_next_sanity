@@ -9,10 +9,10 @@ import Link from 'next/link'
 import client, { urlFor } from '../lib/client'
 
 export default function Home({
-  product,
+  products,
   banner,
 }: {
-  product: IProduct[]
+  products: IProduct[]
   banner: IBanner[]
 }) {
   return (
@@ -21,11 +21,11 @@ export default function Home({
       <Watches />
       <div className="flex flex-col">
         <p className="text-2xl font-semibold text-center my-10">Trending Now</p>
-        <div className="flex flex-col md:flex-row px-2 sm:px-10 lg:px-32 gap-5 lg:gap-10">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+        <div className="flex flex-col md:flex-row px-2 gap-4">
+          {products &&
+            products.map((product) => (
+              <Card key={product._id} product={product} />
+            ))}
         </div>
       </div>
       <TopBrands />
@@ -35,15 +35,16 @@ export default function Home({
 }
 
 export const getServerSideProps = async () => {
-  const query = `*[_type=='product']`
+  const query = `*[_type=='product'] | order(priority desc, _updatedAt desc)[0...4]
+  `
   const bannerQuery = `*[_type=='banner']`
 
-  const product = await client.fetch(query)
+  const products = await client.fetch(query)
   const banner = await client.fetch(bannerQuery)
 
   return {
     props: {
-      product,
+      products,
       banner,
     },
   }
