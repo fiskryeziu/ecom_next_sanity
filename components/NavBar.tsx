@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { useState } from 'react'
 import {
   FaGlobeEurope,
@@ -44,10 +45,10 @@ const NavBar = () => {
       <div className="flex flex-row items-center border border-b-2 border-t-2 h-20">
         <div className="hidden md:block md:basis-1/4"></div>
         <div className="hidden md:flex gap-4 justify-center basis-1/2">
-          <p>Home</p>
-          <p>Home</p>
-          <p>Home</p>
-          <p>Home</p>
+          <Link href="/">Home</Link>
+          <Link href="/products">Watches</Link>
+          <Link href="/about">About</Link>
+          <Link href="/contact">Contact Us</Link>
         </div>
         <div className="flex justify-end pr-10 lg:pr-32 basis-full md:basis-1/4 gap-4">
           <button className="navbar-burger flex items-center pr-10">
