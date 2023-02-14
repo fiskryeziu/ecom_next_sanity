@@ -1,6 +1,6 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useState } from 'react'
-import product from '../public/assets/watchproduct.jpg'
 import { FaShoppingBasket } from 'react-icons/fa'
 import { IProduct } from '@/typings'
 import { urlFor } from '@/lib/client'
@@ -22,11 +22,17 @@ const Card = ({ product }: { product: IProduct }) => {
         <p className="text-slate-400 text-xs">Watch</p>
         <p className="text-sm font-medium line-clamp-1">{product.name}</p>
         <p className="text-right font-semibold ">${product.price}</p>
-        <div className="w-full z-40 cursor-pointer flex  gap-2 justify-center invisible -translate-y-10 transition-transform ease  duration-300 group-hover:visible group-hover:translate-y-0">
+        <div
+          onClick={() => console.log('hello world')}
+          className="w-full z-40 cursor-pointer flex  gap-2 justify-center invisible -translate-y-10 transition-transform ease  duration-300 group-hover:visible group-hover:translate-y-0"
+        >
           <FaShoppingBasket size={16} className="text-slate-400" />
           <p className="text-slate-400 text-sm">Add to cart</p>
         </div>
-        <div className="absolute w-full h-full top-0 left-0 group-hover:bg-white opacity-50 group-hover:duration-300 duration-300"></div>
+        <Link
+          href={`/products/${product.slug.current}`}
+          className="absolute w-full h-full top-0 left-0 group-hover:bg-white opacity-50 group-hover:duration-300 duration-300"
+        ></Link>
       </div>
     </div>
   )

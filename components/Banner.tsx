@@ -1,6 +1,4 @@
-import Image from 'next/image'
-import React, { useRef } from 'react'
-import useOnMouseMove from '../hooks/useOnMouseMove'
+import React from 'react'
 import SwiperCore, {
   EffectFade,
   Navigation,
