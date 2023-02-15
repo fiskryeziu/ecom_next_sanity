@@ -10,7 +10,7 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
   const [index, setIndex] = useState(0)
   const [qty, setQty] = useState<number>(1)
   return (
-    <div className="flex flex-col items-center p">
+    <div className="flex flex-col items-center">
       <p className="p-10">
         <Link
           href={'/'}
