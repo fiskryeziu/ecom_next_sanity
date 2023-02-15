@@ -36,7 +36,7 @@ const Products = ({ products }: { products: IProduct[] }) => {
           </form>
         </div>
         <div className="flex flex-col basis-2/3 p-2 md:p-0">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-5">
             <div>
               <p>Watch</p>
             </div>
