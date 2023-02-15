@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 
 const ProductDetails = ({ product }: { product: IProduct }) => {
   const [index, setIndex] = useState(0)
-  const [qty, setQty] = useState(1)
+  const [qty, setQty] = useState<number>(1)
   return (
     <div className="flex flex-col items-center p">
       <p className="p-10">
@@ -67,7 +67,12 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
               >
                 <p className="text-xl font-semibold">-</p>
               </button>
-              <input type="text" value={qty} className="w-9 text-center h-10" />
+              <input
+                type="text"
+                value={qty}
+                onChange={(e) => setQty(+e.target.value)}
+                className="w-9 text-center h-10"
+              />
               <button
                 onClick={() => setQty((prev) => prev + 1)}
                 className="px-4 py-1 border border-black"
