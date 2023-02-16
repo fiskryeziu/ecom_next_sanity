@@ -1,26 +1,24 @@
-import Card from '@/components/Card'
-import PaginationPage from '@/components/PaginatedPage'
-import Pagination from '@/components/Pagination'
-import client from '@/lib/client'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
+import React, { useState } from 'react'
+import Head from 'next/head'
+import PaginationPage from '../../../components/PaginatedPage'
 import getProducts from '@/lib/getProducts'
-import { IProduct } from '@/typings'
-import { GetStaticProps } from 'next'
+import Card from '@/components/Card'
+import Pagination from '@/components/Pagination'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
 
-import { PER_PAGE } from './page/[page]'
+type PageProps = {
+  products: any[]
+  currentPage: number
+  totalProducts: number
+}
 
-const Products = ({
-  products,
-  currentPage,
-  totalProducts,
-}: {
-  products: IProduct[]
-  currentPage: any
-  totalProducts: any
-}) => {
+export const PER_PAGE = 2
+
+function Page({ products, currentPage, totalProducts }: PageProps) {
   const [price, setPrice] = useState<number>(0)
+
   const router = useRouter()
 
   console.log(router)
@@ -42,7 +40,7 @@ const Products = ({
       </p>
       <div className="flex flex-col md:flex-row">
         <div className="basis-1/3 items-start my-10 p-2 md:p-0 md:pl-10">
-          <form className="flex flex-col" onSubmit={submitHandler}>
+          <form className="flex flex-col " onSubmit={submitHandler}>
             <p>Filter</p>
             <input
               type="range"
@@ -90,12 +88,48 @@ const Products = ({
   )
 }
 
-export default Products
+export const getStaticProps: GetStaticProps = async ({
+  params,
+}: GetStaticPropsContext) => {
+  const page = Number(params?.page) || 1
+  const { products, total } = await getProducts({ limit: PER_PAGE, page })
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { products, total } = await getProducts({ limit: PER_PAGE, page: 1 })
+  if (!products.length) {
+    return {
+      notFound: true,
+    }
+  }
+
+  // Redirect the first page to `/category` to avoid duplicated content
+  if (page === 1) {
+    return {
+      redirect: {
+        destination: '/products',
+        permanent: false,
+      },
+    }
+  }
 
   return {
-    props: { products, totalProducts: total, currentPage: 1 },
+    props: {
+      products,
+      totalProducts: total,
+      currentPage: page,
+    },
+    revalidate: 60 * 60 * 24, // <--- ISR cache: once a day
   }
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    // Prerender the next 5 pages after the first page, which is handled by the index page.
+    // Other pages will be prerendered at runtime.
+    paths: Array.from({ length: 5 }).map((_, i) => `/products/page/${i + 2}`),
+    // Block the request for non-generated pages and cache them in the background
+    fallback: 'blocking',
+  }
+}
+
+export default Page
+
+//pagination 16th february
