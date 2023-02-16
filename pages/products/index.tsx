@@ -4,7 +4,7 @@ import Pagination from '@/components/Pagination'
 import client from '@/lib/client'
 import getProducts from '@/lib/getProducts'
 import { IProduct } from '@/typings'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps, GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -23,10 +23,9 @@ const Products = ({
   const [price, setPrice] = useState<number>(0)
   const router = useRouter()
 
-  console.log(router)
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    router.push('/products/page/2')
+    router.push(`/products?filter=${price}`)
   }
   return (
     <div className="flex flex-col">
@@ -92,8 +91,18 @@ const Products = ({
 
 export default Products
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { products, total } = await getProducts({ limit: PER_PAGE, page: 1 })
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { filter: nFilter, sort: nSort } = context.query
+
+  let filter = nFilter ?? '0'
+  let sort = nSort ?? 'asc'
+
+  const { products, total } = await getProducts({
+    limit: PER_PAGE,
+    page: 1,
+    filter,
+    sort,
+  })
 
   return {
     props: { products, totalProducts: total, currentPage: 1 },

@@ -21,10 +21,9 @@ function Page({ products, currentPage, totalProducts }: PageProps) {
 
   const router = useRouter()
 
-  console.log(router)
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    router.push('/products/page/2')
+    router.push('/products?filter=200')
   }
   return (
     <div className="flex flex-col">

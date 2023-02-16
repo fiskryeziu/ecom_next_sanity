@@ -25,7 +25,6 @@ const useOnMouseMove = (ref) => {
       }
     }
     return () => {
-      console.log('hehe')
       for (let i = 0; i <= sliders.length; i++) {
         if (sliders[i]) {
           sliders[i].removeEventListener('mousemove', () => {
