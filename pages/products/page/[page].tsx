@@ -1,7 +1,5 @@
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
-import React, { useState } from 'react'
-import Head from 'next/head'
-import PaginationPage from '../../../components/PaginatedPage'
+import { GetServerSideProps } from 'next'
+import React, { useEffect, useState } from 'react'
 import getProducts from '@/lib/getProducts'
 import Card from '@/components/Card'
 import Pagination from '@/components/Pagination'
@@ -19,12 +17,32 @@ export const PER_PAGE = 2
 function Page({ products, currentPage, totalProducts }: PageProps) {
   const [price, setPrice] = useState<number>(0)
 
+  const [sort, setSort] = useState<string | undefined>(undefined)
+
   const router = useRouter()
 
+  const getSort = router.query?.sort ?? 'noSort'
+  const getFilter = router.query?.filter ?? 'noFilter'
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    router.push('/products?filter=200')
+    router.push(`/products?filter=${price}&sort=${sort ?? 'asc'}`)
   }
+
+  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault()
+    setSort(e.target.value)
+  }
+
+  useEffect(() => {
+    if (sort) {
+      router.push(
+        `/products?filter=${
+          getFilter !== 'noFilter' ? getFilter : price
+        }&sort=${sort}`
+      )
+    }
+  }, [sort])
+
   return (
     <div className="flex flex-col">
       <p className="p-10">
@@ -60,11 +78,10 @@ function Page({ products, currentPage, totalProducts }: PageProps) {
             </div>
             <div>
               <label>Sort By</label>
-              <select>
-                <option selected disabled></option>
-                <option value="">Low to price</option>
-                <option value="">High to price</option>
-                <option value="">Newest to price</option>
+              <select onChange={onChange} defaultValue="default">
+                <option selected></option>
+                <option value="asc">Price: low to high</option>
+                <option value="desc">Price: high to low</option>
               </select>
             </div>
           </div>
@@ -78,7 +95,15 @@ function Page({ products, currentPage, totalProducts }: PageProps) {
               totalItems={totalProducts}
               currentPage={currentPage}
               itemsPerPage={PER_PAGE}
-              renderPageLink={(page) => `/products/page/${page}`}
+              renderPageLink={(page) =>
+                `${
+                  getSort === 'noSort' && getFilter === 'noFilter'
+                    ? `/products/page/${page}`
+                    : `/products/page/${page}?filter=${getFilter}&sort=${
+                        getSort ?? 'asc'
+                      }`
+                }`
+              }
             />
           </div>
         </div>
@@ -87,11 +112,19 @@ function Page({ products, currentPage, totalProducts }: PageProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({
-  params,
-}: GetStaticPropsContext) => {
-  const page = Number(params?.page) || 1
-  const { products, total } = await getProducts({ limit: PER_PAGE, page })
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const page = Number(context.params?.page) || 1
+  const { filter: nFilter, sort: nSort } = context.query
+
+  let filter = nFilter ?? '0'
+  let sort = nSort ?? 'asc'
+
+  const { products, total } = await getProducts({
+    limit: PER_PAGE,
+    page,
+    filter,
+    sort,
+  })
 
   if (!products.length) {
     return {
@@ -100,14 +133,6 @@ export const getStaticProps: GetStaticProps = async ({
   }
 
   // Redirect the first page to `/category` to avoid duplicated content
-  if (page === 1) {
-    return {
-      redirect: {
-        destination: '/products',
-        permanent: false,
-      },
-    }
-  }
 
   return {
     props: {
@@ -115,19 +140,18 @@ export const getStaticProps: GetStaticProps = async ({
       totalProducts: total,
       currentPage: page,
     },
-    revalidate: 60 * 60 * 24, // <--- ISR cache: once a day
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    // Prerender the next 5 pages after the first page, which is handled by the index page.
-    // Other pages will be prerendered at runtime.
-    paths: Array.from({ length: 5 }).map((_, i) => `/products/page/${i + 2}`),
-    // Block the request for non-generated pages and cache them in the background
-    fallback: 'blocking',
-  }
-}
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   return {
+//     // Prerender the next 5 pages after the first page, which is handled by the index page.
+//     // Other pages will be prerendered at runtime.
+//     paths: Array.from({ length: 5 }).map((_, i) => `/products/page/${i + 2}`),
+//     // Block the request for non-generated pages and cache them in the background
+//     fallback: 'blocking',
+//   }
+// }
 
 export default Page
 

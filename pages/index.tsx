@@ -4,9 +4,7 @@ import InfoSection from '@/components/InfoSection'
 import TopBrands from '@/components/TopBrands'
 import Watches from '@/components/Watches'
 import { IBanner, IProduct } from '@/typings'
-import Image from 'next/image'
-import Link from 'next/link'
-import client, { urlFor } from '../lib/client'
+import client from '../lib/client'
 
 export default function Home({
   products,

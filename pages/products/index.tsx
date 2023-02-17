@@ -7,10 +7,31 @@ import { IProduct } from '@/typings'
 import { GetServerSideProps, GetStaticProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { PER_PAGE } from './page/[page]'
-
+type TOption = {
+  label: string
+  value: string
+}
+const options: TOption[] = [
+  {
+    label: 'Apple',
+    value: 'apple',
+  },
+  {
+    label: 'Mango',
+    value: 'mango',
+  },
+  {
+    label: 'Banana',
+    value: 'banana',
+  },
+  {
+    label: 'Pineapple',
+    value: 'pineapple',
+  },
+]
 const Products = ({
   products,
   currentPage,
@@ -21,12 +42,28 @@ const Products = ({
   totalProducts: any
 }) => {
   const [price, setPrice] = useState<number>(0)
+  const [sort, setSort] = useState<string | undefined>(undefined)
   const router = useRouter()
 
+  const getSort = router.query?.sort ?? 'noSort'
+  const getFilter = router.query?.filter ?? 'noFilter'
+
+  console.log(sort === null)
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    router.push(`/products?filter=${price}`)
+    router.push(`/products?filter=${price}&sort=${sort ?? 'asc'}`)
   }
+
+  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault()
+    setSort(e.target.value)
+  }
+
+  useEffect(() => {
+    if (sort) {
+      router.push(`/products?filter=${price}&sort=${sort}`)
+    }
+  }, [sort])
   return (
     <div className="flex flex-col">
       <p className="p-10">
@@ -62,11 +99,10 @@ const Products = ({
             </div>
             <div>
               <label>Sort By</label>
-              <select>
-                <option selected disabled></option>
-                <option value="">Low to price</option>
-                <option value="">High to price</option>
-                <option value="">Newest to price</option>
+              <select onChange={onChange} defaultValue="default">
+                <option selected></option>
+                <option value="asc">Price: low to high</option>
+                <option value="desc">Price: high to low</option>
               </select>
             </div>
           </div>
@@ -80,7 +116,15 @@ const Products = ({
               totalItems={totalProducts}
               currentPage={currentPage}
               itemsPerPage={PER_PAGE}
-              renderPageLink={(page) => `/products/page/${page}`}
+              renderPageLink={(page) =>
+                `${
+                  getSort === 'noSort' && getFilter === 'noFilter'
+                    ? `/products/page/${page}`
+                    : `/products/page/${page}?filter=${getFilter}&sort=${
+                        getSort ?? 'asc'
+                      }`
+                }`
+              }
             />
           </div>
         </div>
