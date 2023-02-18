@@ -22,11 +22,18 @@ const Contact = ({ contact }: { contact: IContact }) => {
     message: '',
   })
 
-  console.log(contact)
   const { name, email, subject, message } = formData
 
-  const submitHandler = () => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     console.log('Hi!')
+  }
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }))
   }
   return (
     <div className="flex flex-col px-2 md:px-5 lg:px-20 justify-center">
@@ -75,6 +82,7 @@ const Contact = ({ contact }: { contact: IContact }) => {
                 name="name"
                 value={name}
                 className="bg-slate-100 rounded-lg px-2 py-2 border border-slate-300"
+                onChange={onChange}
               />
             </div>
 
@@ -85,6 +93,7 @@ const Contact = ({ contact }: { contact: IContact }) => {
                 name="email"
                 value={email}
                 className="bg-slate-100 rounded-lg px-2 py-2 border border-slate-300"
+                onChange={onChange}
               />
             </div>
 
@@ -95,6 +104,7 @@ const Contact = ({ contact }: { contact: IContact }) => {
                 name="subject"
                 value={subject}
                 className="bg-slate-100 rounded-lg px-2 py-2 border border-slate-300"
+                onChange={onChange}
               />
             </div>
 
@@ -105,6 +115,7 @@ const Contact = ({ contact }: { contact: IContact }) => {
                 name="message"
                 value={message}
                 className="bg-slate-100 rounded-lg px-2 py-2 border border-slate-300"
+                onChange={onChange}
               />
             </div>
             <button className="bg-[#eb6a2a] px-4 py-2 rounded-md text-white hover:brightness-125">
