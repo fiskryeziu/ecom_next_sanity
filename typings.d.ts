@@ -30,3 +30,12 @@ export interface IAbout {
     desc: string,
     image: string
 }
+export interface IContact {
+    _id: string,
+    title: string,
+    desc: string
+    facebook: string,
+    instagram: string,
+    website: string,
+
+}
