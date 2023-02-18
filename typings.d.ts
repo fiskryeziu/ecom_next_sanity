@@ -32,6 +32,7 @@ export interface IAbout {
 }
 export interface IContact {
     _id: string,
+    name: string,
     title: string,
     desc: string
     facebook: string,

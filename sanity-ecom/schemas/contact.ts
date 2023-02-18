@@ -27,6 +27,24 @@ export default {
             name: 'desc',
             title: 'Desc',
             type: 'string',
+        },
+        {
+
+            name: 'facebook',
+            title: 'Facebook',
+            type: 'string',
+        },
+        {
+
+            name: 'instagram',
+            title: 'Instagram',
+            type: 'string',
+        },
+        {
+
+            name: 'website',
+            title: 'Website',
+            type: 'string',
         }
 
     ]

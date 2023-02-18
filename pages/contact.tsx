@@ -22,6 +22,7 @@ const Contact = ({ contact }: { contact: IContact }) => {
     message: '',
   })
 
+  console.log(contact)
   const { name, email, subject, message } = formData
 
   const submitHandler = () => {
@@ -37,25 +38,25 @@ const Contact = ({ contact }: { contact: IContact }) => {
           Home
         </Link>
         <span className="p-2"> &#62;</span>
-        Contact us
+        {contact.name}
       </p>
       <div className="flex  w-full items-center justify-around">
         <div className="flex flex-col items-center justify-center gap-3">
-          <a href="" target="_blank" rel="noreferrer">
+          <a href={contact.facebook} target="_blank" rel="noreferrer">
             <FaFacebook className="text-slate-800 text-xl md:text-3xl" />
           </a>
           <p className="text-sm md:text-base">Facebook</p>
           <div className="w-10 h-[1px] sm:h-1 bg-slate-900"></div>
         </div>
         <div className="flex flex-col items-center justify-center gap-3">
-          <a href="" target="_blank" rel="noreferrer">
+          <a href={contact.instagram} target="_blank" rel="noreferrer">
             <FaInstagram className="text-slate-800 text-xl md:text-3xl" />
           </a>
           <p className="text-sm md:text-base">Instagram</p>
           <div className="w-10 h-[1px] sm:h-1 bg-slate-900"></div>
         </div>
         <div className="flex flex-col items-center justify-center gap-3">
-          <a href="" target="_blank" rel="noreferrer">
+          <a href={contact.website} target="_blank" rel="noreferrer">
             <FaLink className="text-slate-800 text-xl md:text-3xl" />
           </a>
           <p className="text-sm md:text-base">Dev</p>
@@ -64,14 +65,8 @@ const Contact = ({ contact }: { contact: IContact }) => {
       </div>
       <div className="w-full flex justify-center mt-20">
         <div className="w-full md:w-1/2 flex items-center flex-col gap-2">
-          <p className="text-center">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Voluptatibus sequi assumenda voluptatem nemo minima repellat
-            eligendi autem est officiis ea.
-          </p>
-          <p className="text-2xl md:text-3xl text-center">
-            Contact Us Directly
-          </p>
+          <p className="text-center">{contact.desc}</p>
+          <p className="text-2xl md:text-3xl text-center">{contact.title}</p>
           <form onSubmit={submitHandler} className="py-10 space-y-10">
             <div className="flex flex-col items-center">
               <label htmlFor="name">Name</label>
@@ -131,7 +126,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      about: contact[0],
+      contact: contact[0],
     },
   }
 }
