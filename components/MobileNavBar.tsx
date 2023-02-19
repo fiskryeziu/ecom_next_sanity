@@ -20,7 +20,7 @@ const MobileNavBar = ({ setOpen, open }: IState) => {
           >
             <AiOutlineClose size={18} />
           </button>
-          <div className="mt-24">
+          <div className="mt-24 ">
             <p className="px-4 py-2 font-semibold">Home</p>
             <p className="px-4 py-2 font-semibold">Home</p>
             <p className="px-4 py-2 font-semibold">Home</p>

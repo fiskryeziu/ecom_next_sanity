@@ -11,10 +11,12 @@ import {
   FaShoppingBag,
   FaBars,
 } from 'react-icons/fa'
+import Cart from './Cart'
 import MobileNavBar from './MobileNavBar'
 
 const NavBar = () => {
   const [open, setOpen] = useState(false)
+  const [cartShow, setCartShow] = useState(false)
   return (
     <nav className="bg-[#f6f7fb] flex flex-col">
       <div className="h-10 hidden sm:flex justify-between items-center px-4">
@@ -60,7 +62,7 @@ const NavBar = () => {
             />
           </button>
           <FaSearch size={28} color="#eb6a2a" />
-          <div className="flex relative">
+          <div className="flex relative" onClick={() => setCartShow(!cartShow)}>
             <FaShoppingBag size={28} color="#eb6a2a" />
             <p className="flex items-center justify-center absolute w-5 h-5 bg-[#eb6a2a] rounded-full top-[-.2em] right-[-.7em] border-2 border-white text-white ">
               1
@@ -69,6 +71,7 @@ const NavBar = () => {
         </div>
       </div>
       <MobileNavBar open={open} setOpen={setOpen} />
+      <Cart open={cartShow} setOpen={setCartShow} />
     </nav>
   )
 }
