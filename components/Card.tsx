@@ -4,9 +4,10 @@ import React, { useState } from 'react'
 import { FaShoppingBasket } from 'react-icons/fa'
 import { IProduct } from '@/typings'
 import { urlFor } from '@/lib/client'
+import { useAppContext } from '@/context/state'
 
 const Card = ({ product }: { product: IProduct }) => {
-  const [show, setShow] = useState(false)
+  const { addToCart } = useAppContext()
   return (
     <div className="relative flex w-full md:w-1/4 max-h-80 overflow-hidden items-center justify-center group border-t md:border">
       <div className="flex flex-col gap-1 w-56">
@@ -23,7 +24,7 @@ const Card = ({ product }: { product: IProduct }) => {
         <p className="text-sm font-medium line-clamp-1">{product.name}</p>
         <p className="text-right font-semibold ">${product.price}</p>
         <div
-          onClick={() => console.log('hello world')}
+          onClick={() => addToCart(product)}
           className="w-full z-40 cursor-pointer flex  gap-2 justify-center invisible -translate-y-10 transition-transform ease  duration-300 group-hover:visible group-hover:translate-y-0"
         >
           <FaShoppingBasket size={16} className="text-slate-400" />

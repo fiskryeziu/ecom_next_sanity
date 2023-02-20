@@ -22,8 +22,6 @@ const Banner = ({ data }: { data: IBanner[] }) => {
       }}
       slidesPerView={1}
       modules={[Pagination, EffectFade]}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
       touchStartPreventDefault={true}
       loop={true}
       autoplay={{ delay: 9000 }}

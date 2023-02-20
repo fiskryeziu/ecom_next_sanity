@@ -1,3 +1,4 @@
+import { useAppContext } from '@/context/state'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import {
@@ -17,6 +18,7 @@ import MobileNavBar from './MobileNavBar'
 const NavBar = () => {
   const [open, setOpen] = useState(false)
   const [cartShow, setCartShow] = useState(false)
+  const { cartItems } = useAppContext()
   return (
     <nav className="bg-[#f6f7fb] flex flex-col">
       <div className="h-10 hidden sm:flex justify-between items-center px-4">
@@ -65,7 +67,7 @@ const NavBar = () => {
           <div className="flex relative" onClick={() => setCartShow(!cartShow)}>
             <FaShoppingBag size={28} color="#eb6a2a" />
             <p className="flex items-center justify-center absolute w-5 h-5 bg-[#eb6a2a] rounded-full top-[-.2em] right-[-.7em] border-2 border-white text-white ">
-              1
+              {cartItems.length}
             </p>
           </div>
         </div>

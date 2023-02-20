@@ -7,7 +7,9 @@ export interface IProduct {
     model: string,
     material: string,
     price: number,
-    image: string[]
+    image: string[],
+    qty: number
+
 
 }
 export interface IBanner {
