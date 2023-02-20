@@ -1,3 +1,6 @@
+import { useAppContext } from '@/context/state'
+import { urlFor } from '@/lib/client'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
@@ -7,6 +10,8 @@ interface IState {
   open: boolean
 }
 const Cart = ({ setOpen, open }: IState) => {
+  const { cartItems, totalPrice } = useAppContext()
+
   return (
     <div
       className={`fixed w-screen h-full top-0 ${
@@ -28,28 +33,37 @@ const Cart = ({ setOpen, open }: IState) => {
 
           <div className="flex flex-col overflow-y-auto pb-10">
             {/* items */}
-            {[1, 2, 3, 4, 5, 6].map((_, idx) => (
-              <div key={idx} className="flex mt-4 px-4">
-                <img
-                  src="https://images.pexels.com/photos/47856/rolex-wrist-watch-clock-gmt-47856.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt=""
-                  width={50}
-                  height={50}
-                />
-                <div className="flex flex-col w-full justify-between">
-                  <p className="text-blue-700 text-sm font-medium">
-                    Watch name
-                  </p>
-                  <p className="text-right text-sm">1 x 3,890,000$</p>
+            {cartItems.length > 0 ? (
+              cartItems.map((item) => (
+                <div key={item._id} className="flex mt-4 px-4">
+                  <Image
+                    src={urlFor(item.image[0]).url()}
+                    alt="watch image cart item"
+                    width={20}
+                    height={20}
+                    className="object-cover object-center w-12 h-12"
+                  />
+                  <div className="flex flex-col w-full justify-between">
+                    <p className="text-blue-700 text-sm font-medium line-clamp-1">
+                      {item.name}
+                    </p>
+                    <p className="text-right text-sm">
+                      {item.qty} x ${item.price}
+                    </p>
+                  </div>
+                  <button className="ml-2 my-auto w-5 h-5 rounded-full text-sm font-bold text-red-600 hover:bg-red-600 hover:text-white">
+                    X
+                  </button>
                 </div>
-                <button className="ml-2 my-auto w-5 h-5 rounded-full text-sm font-bold text-red-600  hover:bg-red-600 hover:text-white">
-                  X
-                </button>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-center my-10 text-base font-semibold">
+                Your cart is empty
+              </p>
+            )}
           </div>
           <div className="flex item-center justify-end p-2">
-            <p>Subtotal : 100,000$</p>
+            <p>Subtotal : ${totalPrice}</p>
           </div>
           <div className="flex gap-2 px-2 pb-10 pt-2 justify-center">
             <Link

@@ -4,8 +4,7 @@ import { createContext, ReactNode, useContext, useState } from 'react'
 interface IContext {
   cartItems: IProduct[]
   addToCart: (item: any) => void
-  //   productQty: number
-  //   totalQty: number
+  totalPrice: number
 }
 
 const Context = createContext<IContext>({} as IContext)
@@ -15,7 +14,10 @@ type Props = {
 }
 export function AppWrapper({ children }: Props) {
   const [cartItems, setCartItems] = useState<IProduct[]>([])
-  const [totalQty, settotalQty] = useState(null)
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.qty * item.price,
+    0
+  )
 
   const addToCart = (item: IProduct) => {
     if (cartItems.length > 0) {
@@ -42,9 +44,9 @@ export function AppWrapper({ children }: Props) {
       setCartItems((prev) => [...prev, newItem])
     }
   }
-  console.log(cartItems)
+
   return (
-    <Context.Provider value={{ cartItems, addToCart }}>
+    <Context.Provider value={{ cartItems, addToCart, totalPrice }}>
       {children}
     </Context.Provider>
   )
