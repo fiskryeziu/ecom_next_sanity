@@ -70,20 +70,22 @@ const Cart = ({ setOpen, open }: IState) => {
           <div className="flex item-center justify-end p-2">
             <p>Subtotal : ${totalPrice}</p>
           </div>
-          <div className="flex gap-2 px-2 pb-10 pt-2 justify-center">
-            <Link
-              href="/cart"
-              className="px-10 py-2 bg-orange-500 rounded-full text-white hover:brightness-125 hover:duration-200 duration-200"
-            >
-              Cart
-            </Link>
-            <Link
-              href="/checkout"
-              className="px-10 py-2 bg-orange-500 rounded-full text-white hover:brightness-125 hover:duration-200 duration-200"
-            >
-              Checkout
-            </Link>
-          </div>
+          {cartItems && cartItems.length > 1 && (
+            <div className="flex gap-2 px-2 pb-10 pt-2 justify-center">
+              <Link
+                href="/cart"
+                className="px-10 py-2 bg-orange-500 rounded-full text-white hover:brightness-125 hover:duration-200 duration-200"
+              >
+                Cart
+              </Link>
+              <Link
+                href="/checkout"
+                className="px-10 py-2 bg-orange-500 rounded-full text-white hover:brightness-125 hover:duration-200 duration-200"
+              >
+                Checkout
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
