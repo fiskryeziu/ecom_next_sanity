@@ -5,6 +5,7 @@ interface IContext {
   cartItems: IProduct[]
   addToCart: (item: any) => void
   totalPrice: number
+  removeItem: (id: string) => void
 }
 
 const Context = createContext<IContext>({} as IContext)
@@ -45,8 +46,13 @@ export function AppWrapper({ children }: Props) {
     }
   }
 
+  const removeItem = (id: string) => {
+    const filterItem = cartItems.filter((item) => item._id !== id)
+    setCartItems(filterItem)
+  }
+
   return (
-    <Context.Provider value={{ cartItems, addToCart, totalPrice }}>
+    <Context.Provider value={{ cartItems, addToCart, totalPrice, removeItem }}>
       {children}
     </Context.Provider>
   )

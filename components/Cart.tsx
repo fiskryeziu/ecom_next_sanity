@@ -10,7 +10,7 @@ interface IState {
   open: boolean
 }
 const Cart = ({ setOpen, open }: IState) => {
-  const { cartItems, totalPrice } = useAppContext()
+  const { cartItems, totalPrice, removeItem } = useAppContext()
 
   return (
     <div
@@ -53,7 +53,10 @@ const Cart = ({ setOpen, open }: IState) => {
                       {item.qty} x ${item.price}
                     </p>
                   </div>
-                  <button className="ml-2 my-auto w-5 h-5 rounded-full text-sm font-bold text-red-600 hover:bg-red-600 hover:text-white">
+                  <button
+                    onClick={() => removeItem(item._id)}
+                    className="ml-2 my-auto w-5 h-5 rounded-full text-sm font-bold text-red-600 hover:bg-red-600 hover:text-white"
+                  >
                     X
                   </button>
                 </div>
