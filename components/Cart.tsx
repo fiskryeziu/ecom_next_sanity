@@ -36,13 +36,15 @@ const Cart = ({ setOpen, open }: IState) => {
             {cartItems.length > 0 ? (
               cartItems.map((item) => (
                 <div key={item._id} className="flex mt-4 px-4">
-                  <Image
-                    src={urlFor(item.image[0]).url()}
-                    alt="watch image cart item"
-                    width={20}
-                    height={20}
-                    className="object-cover object-center w-12 h-12"
-                  />
+                  <div>
+                    <Image
+                      src={urlFor(item.image[0]).url()}
+                      alt="watch image cart item"
+                      width={20}
+                      height={20}
+                      className="object-cover object-center w-12 h-12"
+                    />
+                  </div>
                   <div className="flex flex-col w-full justify-between">
                     <p className="text-blue-700 text-sm font-medium line-clamp-1">
                       {item.name}
