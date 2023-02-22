@@ -51,6 +51,8 @@ export function AppWrapper({ children }: Props) {
     setCartItems(filterItem)
   }
 
+  const updateProduct = (id: string) => {}
+
   return (
     <Context.Provider value={{ cartItems, addToCart, totalPrice, removeItem }}>
       {children}

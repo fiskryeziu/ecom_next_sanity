@@ -70,7 +70,7 @@ const Cart = ({ setOpen, open }: IState) => {
           <div className="flex item-center justify-end p-2">
             <p>Subtotal : ${totalPrice}</p>
           </div>
-          {cartItems && cartItems.length > 1 && (
+          {cartItems && cartItems.length > 0 && (
             <div className="flex gap-2 px-2 pb-10 pt-2 justify-center">
               <Link
                 href="/cart"
