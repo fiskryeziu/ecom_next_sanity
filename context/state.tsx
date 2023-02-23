@@ -6,6 +6,7 @@ interface IContext {
   addToCart: (item: any) => void
   totalPrice: number
   removeItem: (id: string) => void
+  updateQty: (id: string, value: string) => void
 }
 
 const Context = createContext<IContext>({} as IContext)
@@ -51,10 +52,39 @@ export function AppWrapper({ children }: Props) {
     setCartItems(filterItem)
   }
 
-  const updateProduct = (id: string) => {}
+  const updateQty = (id: string, value: string) => {
+    const findProduct = cartItems.find((x) => x._id === id)
+    const newCartItems = cartItems.filter((item) => item._id !== id)
+    console.log(id)
+    if (findProduct) {
+      if (value === 'inc') {
+        setCartItems((prev) =>
+          prev.map((item) => {
+            if (item._id === id) {
+              return { ...item, qty: findProduct.qty + 1 }
+            }
+            return item
+          })
+        )
+      } else if (value === 'dec') {
+        if (findProduct.qty > 1) {
+          setCartItems((prev) =>
+            prev.map((item) => {
+              if (item._id === id) {
+                return { ...item, qty: findProduct.qty - 1 }
+              }
+              return item
+            })
+          )
+        }
+      }
+    }
+  }
 
   return (
-    <Context.Provider value={{ cartItems, addToCart, totalPrice, removeItem }}>
+    <Context.Provider
+      value={{ cartItems, addToCart, totalPrice, removeItem, updateQty }}
+    >
       {children}
     </Context.Provider>
   )
