@@ -1,7 +1,9 @@
 import { useAppContext } from '@/context/state'
 import { urlFor } from '@/lib/client'
+import getStripe from '@/lib/getStripe'
 import Image from 'next/image'
 import Link from 'next/link'
+import { NextResponse } from 'next/server'
 import React from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 
@@ -11,6 +13,27 @@ interface IState {
 }
 const Cart = ({ setOpen, open }: IState) => {
   const { cartItems, totalPrice, removeItem } = useAppContext()
+
+  const handleCheckout = async () => {
+    const stripe = await getStripe()
+    if (stripe) {
+      const response = await fetch('/api/stripe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cartItems),
+      })
+
+      if (response.status === 500) return
+
+      const data = await response.json()
+
+      // toast.loading('Redirecting...')
+
+      stripe.redirectToCheckout({ sessionId: data.id })
+    }
+  }
 
   return (
     <div
@@ -78,12 +101,12 @@ const Cart = ({ setOpen, open }: IState) => {
               >
                 Cart
               </Link>
-              <Link
-                href="/checkout"
+              <button
+                onClick={handleCheckout}
                 className="px-10 py-2 bg-orange-500 rounded-full text-white hover:brightness-125 hover:duration-200 duration-200"
               >
                 Checkout
-              </Link>
+              </button>
             </div>
           )}
         </div>
