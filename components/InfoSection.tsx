@@ -4,9 +4,9 @@ import img from '../public/assets/garmin.png'
 
 const InfoSection = () => {
   return (
-    <div className="flex flex-col md:flex-row overflow-hidden my-20 bg-slate-100">
+    <div className="flex flex-col md:flex-row overflow-hidden my-20 bg-slate-100 p-2">
       <div className="flex basis-1/2 justify-center">
-        <Image src={img} alt="" className=" w-96 h-full object-cover" />
+        <Image src={img} alt="" className="w-52 md:w-96 h-full object-cover" />
       </div>
       <div className="flex flex-col basis-1/2 items-center md:items-start justify-center gap-6">
         <p className="text-4xl font-bold w-3/4 text-slate-800 text-center md:text-left">

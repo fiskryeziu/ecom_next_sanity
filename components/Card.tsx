@@ -24,7 +24,7 @@ const Card = ({ product }: { product: IProduct }) => {
         <p className="text-sm font-medium line-clamp-1">{product.name}</p>
         <p className="text-right font-semibold ">${product.price}</p>
         <div
-          onClick={() => addToCart(product)}
+          onClick={() => addToCart(product, 1)}
           className="w-full z-40 cursor-pointer flex  gap-2 justify-center invisible -translate-y-10 transition-transform ease  duration-300 group-hover:visible group-hover:translate-y-0"
         >
           <FaShoppingBasket size={16} className="text-slate-400" />

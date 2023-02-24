@@ -1,3 +1,4 @@
+import { useAppContext } from '@/context/state'
 import client, { urlFor } from '@/lib/client'
 import { IProduct } from '@/typings'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -9,6 +10,8 @@ import React, { useState } from 'react'
 const ProductDetails = ({ product }: { product: IProduct }) => {
   const [index, setIndex] = useState(0)
   const [qty, setQty] = useState<number>(1)
+
+  const { addToCart } = useAppContext()
   return (
     <div className="flex flex-col items-center">
       <p className="p-10">
@@ -80,7 +83,10 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
                 <p className="text-xl font-semibold">+</p>
               </button>
             </div>
-            <button className="bg-orange-500 px-5 text-white hover:brightness-110">
+            <button
+              className="bg-orange-500 px-5 text-white hover:brightness-110"
+              onClick={() => addToCart(product, qty)}
+            >
               Add to Cart
             </button>
           </div>

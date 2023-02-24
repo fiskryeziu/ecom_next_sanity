@@ -54,21 +54,27 @@ const NavBar = () => {
           <Link href="/about">About</Link>
           <Link href="/contact">Contact Us</Link>
         </div>
-        <div className="flex justify-end pr-10 lg:pr-32 basis-full md:basis-1/4 gap-4">
-          <button className="navbar-burger flex items-center pr-10">
-            <FaBars
-              size={28}
-              color="#eb6a2a"
-              className="block md:hidden"
-              onClick={() => setOpen(!open)}
-            />
-          </button>
-          <FaSearch size={28} color="#eb6a2a" />
-          <div className="flex relative" onClick={() => setCartShow(!cartShow)}>
-            <FaShoppingBag size={28} color="#eb6a2a" />
-            <p className="flex items-center justify-center absolute w-5 h-5 bg-[#eb6a2a] rounded-full top-[-.2em] right-[-.7em] border-2 border-white text-white ">
-              {cartItems.length}
-            </p>
+        <div className="flex justify-between  md:justify-end pr-10 lg:pr-32 basis-full md:basis-1/4 gap-4">
+          <div className="pl-5">
+            <button className="flex items-center md:hidden">
+              <FaBars
+                size={28}
+                color="#eb6a2a"
+                onClick={() => setOpen(!open)}
+              />
+            </button>
+          </div>
+          <div className="flex gap-5">
+            <FaSearch size={28} color="#eb6a2a" />
+            <div
+              className="flex relative"
+              onClick={() => setCartShow(!cartShow)}
+            >
+              <FaShoppingBag size={28} color="#eb6a2a" />
+              <p className="flex items-center justify-center absolute w-5 h-5 bg-[#eb6a2a] rounded-full top-[-.2em] right-[-.7em] border-2 border-white text-white ">
+                {cartItems.length}
+              </p>
+            </div>
           </div>
         </div>
       </div>

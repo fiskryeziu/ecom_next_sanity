@@ -3,7 +3,7 @@ import { createContext, ReactNode, useContext, useState } from 'react'
 
 interface IContext {
   cartItems: IProduct[]
-  addToCart: (item: any) => void
+  addToCart: (item: IProduct, qty: number) => void
   totalPrice: number
   removeItem: (id: string) => void
   updateQty: (id: string, value: string) => void
@@ -21,14 +21,17 @@ export function AppWrapper({ children }: Props) {
     0
   )
 
-  const addToCart = (item: IProduct) => {
+  const addToCart = (item: any, qty: number) => {
+    if (typeof qty === 'undefined') {
+      qty = 1
+    }
     if (cartItems.length > 0) {
       const findProduct = cartItems.find((x) => x._id === item._id)
       if (findProduct) {
         const newItem = item
         const result = cartItems.map((x) => {
           if (x._id === newItem._id) {
-            x.qty++
+            x.qty += qty
             return x
           } else {
             return x
@@ -37,12 +40,12 @@ export function AppWrapper({ children }: Props) {
         setCartItems(result)
       } else {
         const newItem = item
-        newItem.qty = 1
+        newItem.qty = qty
         setCartItems((prev) => [...prev, newItem])
       }
     } else {
       const newItem = item
-      newItem.qty = 1
+      newItem.qty = qty
       setCartItems((prev) => [...prev, newItem])
     }
   }
@@ -54,7 +57,6 @@ export function AppWrapper({ children }: Props) {
 
   const updateQty = (id: string, value: string) => {
     const findProduct = cartItems.find((x) => x._id === id)
-    const newCartItems = cartItems.filter((item) => item._id !== id)
     console.log(id)
     if (findProduct) {
       if (value === 'inc') {

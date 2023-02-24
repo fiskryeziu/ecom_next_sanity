@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 
@@ -6,11 +7,14 @@ interface IState {
   open: boolean
 }
 const MobileNavBar = ({ setOpen, open }: IState) => {
+  const toggle = () => {
+    setOpen(!open)
+  }
   return (
     <div
       className={`fixed w-screen h-full top-0 ${
-        open ? ' left-[0px]' : 'left-[-3000px]'
-      } z-10 transition-all ease-in-out duration-700`}
+        open ? ' left-[0px]' : 'left-[-3000px] ease duration-[2s]'
+      } z-10 transition-all ease duration-700`}
     >
       <div className="flex absolute left-0 top-0 w-72 h-full bg-[#f7f7f7] z-10">
         <div className="w-full relative flex flex-col">
@@ -20,11 +24,31 @@ const MobileNavBar = ({ setOpen, open }: IState) => {
           >
             <AiOutlineClose size={18} />
           </button>
-          <div className="mt-24 ">
-            <p className="px-4 py-2 font-semibold">Home</p>
-            <p className="px-4 py-2 font-semibold">Home</p>
-            <p className="px-4 py-2 font-semibold">Home</p>
-            <p className="px-4 py-2 font-semibold">Home</p>
+          <div className="mt-24 flex flex-col">
+            <Link href="/" className="px-4 py-2 font-semibold" onClick={toggle}>
+              Home
+            </Link>
+            <Link
+              href="/products"
+              className="px-4 py-2 font-semibold"
+              onClick={toggle}
+            >
+              Watches
+            </Link>
+            <Link
+              href="/about"
+              className="px-4 py-2 font-semibold"
+              onClick={toggle}
+            >
+              About
+            </Link>
+            <Link
+              href="/contact"
+              className="px-4 py-2 font-semibold"
+              onClick={toggle}
+            >
+              Contact us
+            </Link>
           </div>
         </div>
       </div>
