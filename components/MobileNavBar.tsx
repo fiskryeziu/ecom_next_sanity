@@ -1,3 +1,4 @@
+import { useAppContext } from '@/context/state'
 import Link from 'next/link'
 import React from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
@@ -6,7 +7,8 @@ interface IState {
   setOpen: (value: boolean) => void
   open: boolean
 }
-const MobileNavBar = ({ setOpen, open }: IState) => {
+const MobileNavBar = () => {
+  const { open, setOpen } = useAppContext()
   const toggle = () => {
     setOpen(!open)
   }

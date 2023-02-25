@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { IProduct } from '@/typings'
 import { createContext, ReactNode, useContext, useState } from 'react'
 
@@ -7,6 +8,10 @@ interface IContext {
   totalPrice: number
   removeItem: (id: string) => void
   updateQty: (id: string, value: string) => void
+  setCartShow: (value: boolean) => void
+  cartShow: boolean
+  setOpen: (value: boolean) => void
+  open: boolean
 }
 
 const Context = createContext<IContext>({} as IContext)
@@ -15,7 +20,16 @@ type Props = {
   children: ReactNode
 }
 export function AppWrapper({ children }: Props) {
+  const [open, setOpen] = useState(false)
+  const [cartShow, setCartShow] = useState(false)
   const [cartItems, setCartItems] = useState<IProduct[]>([])
+
+  useEffect(() => {
+    if (cartShow) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [cartShow])
+
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.qty * item.price,
     0
@@ -85,7 +99,17 @@ export function AppWrapper({ children }: Props) {
 
   return (
     <Context.Provider
-      value={{ cartItems, addToCart, totalPrice, removeItem, updateQty }}
+      value={{
+        cartItems,
+        addToCart,
+        totalPrice,
+        removeItem,
+        updateQty,
+        cartShow,
+        setCartShow,
+        open,
+        setOpen,
+      }}
     >
       {children}
     </Context.Provider>

@@ -9,7 +9,7 @@ const Carousel = ({ item }: { item: IBanner }) => {
   useOnMouseMove(imgRef)
   return (
     <div
-      className="relative flex h-screen justify-center items-center"
+      className="relative flex h-[60vh]  md:h-screen justify-center items-center"
       id="anchor"
     >
       <div
@@ -53,7 +53,7 @@ const Carousel = ({ item }: { item: IBanner }) => {
         width={300}
         height={300}
         ref={imgRef}
-        className="absolute bottom-6 md:bottom-auto right-4  lg:right-20 rounded-full object-cover w-40  sm:w-60 md:w-72"
+        className="absolute bottom-6 md:bottom-auto right-4  lg:right-20 rounded-full object-cover w-32  sm:w-60 md:w-72"
         style={{ '--order': 5 } as React.CSSProperties}
       />
     </div>

@@ -7,12 +7,9 @@ import { NextResponse } from 'next/server'
 import React from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 
-interface IState {
-  setOpen: (value: boolean) => void
-  open: boolean
-}
-const Cart = ({ setOpen, open }: IState) => {
-  const { cartItems, totalPrice, removeItem } = useAppContext()
+const Cart = () => {
+  const { cartItems, totalPrice, removeItem, cartShow, setCartShow } =
+    useAppContext()
 
   const handleCheckout = async () => {
     const stripe = await getStripe()
@@ -38,18 +35,18 @@ const Cart = ({ setOpen, open }: IState) => {
   return (
     <div
       className={`fixed w-screen h-full top-0 ${
-        open ? 'right-0 opacity-100' : 'invisible opacity-0'
+        cartShow ? 'right-0 opacity-100' : 'invisible opacity-0'
       } z-10 transition-all ease-in-out duration-200`}
     >
       <div
         className={`flex absolute right-0 top-0 max-w-[360px] w-full h-full bg-[#f7f7f7] ${
-          open ? 'right-0' : 'right-[-3000px]'
+          cartShow ? 'right-0' : 'right-[-3000px]'
         } z-10 transition-all ease duration-700`}
       >
         <div className="w-full relative flex flex-col">
           <div className="flex justify-between pt-5 px-2">
             <p className="p-2  left-5 top-6">Shopping Cart</p>
-            <button className="p-2" onClick={() => setOpen(!open)}>
+            <button className="p-2" onClick={() => setCartShow(!cartShow)}>
               <AiOutlineClose className="text-xl font-black" />
             </button>
           </div>
@@ -63,8 +60,8 @@ const Cart = ({ setOpen, open }: IState) => {
                     <Image
                       src={urlFor(item.image[0]).url()}
                       alt="watch image cart item"
-                      width={20}
-                      height={20}
+                      width={200}
+                      height={200}
                       className="object-cover object-center w-12 h-12"
                     />
                   </div>
@@ -98,6 +95,7 @@ const Cart = ({ setOpen, open }: IState) => {
               <Link
                 href="/cart"
                 className="px-10 py-2 bg-orange-500 rounded-full text-white hover:brightness-125 hover:duration-200 duration-200"
+                onClick={() => setCartShow(!cartShow)}
               >
                 Cart
               </Link>

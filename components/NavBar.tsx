@@ -16,9 +16,7 @@ import Cart from './Cart'
 import MobileNavBar from './MobileNavBar'
 
 const NavBar = () => {
-  const [open, setOpen] = useState(false)
-  const [cartShow, setCartShow] = useState(false)
-  const { cartItems } = useAppContext()
+  const { cartItems, cartShow, setCartShow, open, setOpen } = useAppContext()
   return (
     <nav className="bg-[#f6f7fb] flex flex-col">
       <div className="h-10 hidden sm:flex justify-between items-center px-4">
@@ -40,9 +38,6 @@ const NavBar = () => {
             <FaInstagram />
             <FaPinterest />
           </div>
-        </div>
-        <div>
-          <p>Login</p>
         </div>
       </div>
 
@@ -78,8 +73,8 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <MobileNavBar open={open} setOpen={setOpen} />
-      <Cart open={cartShow} setOpen={setCartShow} />
+      <MobileNavBar />
+      <Cart />
     </nav>
   )
 }
