@@ -16,6 +16,8 @@ import Cart from './Cart'
 import MobileNavBar from './MobileNavBar'
 
 const NavBar = () => {
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [search, setSearch] = useState('')
   const { cartItems, cartShow, setCartShow, open, setOpen } = useAppContext()
   return (
     <nav className="bg-[#f6f7fb] flex flex-col">
@@ -60,7 +62,31 @@ const NavBar = () => {
             </button>
           </div>
           <div className="flex gap-5">
-            <FaSearch size={28} color="#eb6a2a" />
+            <div className="relative">
+              <FaSearch
+                size={28}
+                color="#eb6a2a"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+              />
+              <div
+                className={`absolute border border-black  right-0 z-50 ${
+                  isSearchOpen
+                    ? 'visible top-10 duration-300 '
+                    : 'invisible top-5'
+                }`}
+              >
+                <form action="" className="flex items-center justify-center">
+                  <input
+                    type="text"
+                    value={search}
+                    placeholder="search..."
+                    className="h-12 w-80"
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </form>
+              </div>
+            </div>
+
             <div
               className="flex relative"
               onClick={() => setCartShow(!cartShow)}
