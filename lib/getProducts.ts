@@ -18,8 +18,26 @@ export default async function getProducts({
     // Usually pagination is done by your DB, and the total is also known by the
     // DB, in this case we're using a demo json so things are simpler.
     // const query = `*[_type=="product && price>${filter}"] | order(price ${sort})`
-    const query = `*[_type=="product" && price > ${filter}] | order(price ${sort})`
-    const products = await client.fetch(query)
+    // const query = `*[_type=="product" && price > ${filter}] | order(price ${sort})`
+
+    let gQuery = '*[_type == "product"';
+
+    // if (query !== 'all') {
+    //     gQuery += ` && name match "${query}" `;
+    // }
+    if (filter !== 'all') {
+        const price = Number(filter);
+        gQuery += ` && price > ${price}`;
+    }
+    let order = '';
+    if (sort !== 'default') {
+        if (sort === 'asc') order = '| order(price asc)';
+        if (sort === 'desc') order = '| order(price desc)';
+    }
+
+    gQuery += `] ${order}`;
+
+    const products = await client.fetch(gQuery);
 
     //for highest price and below 
     // *[_type=='product' ] | order(price desc) 
@@ -36,6 +54,8 @@ export default async function getProducts({
 
     //with filter 
     // *[_type=='product' && price>0 ] | order('')
+
+
 
 
     const paginatedProducts = products.slice((page - 1) * limit, page * limit)

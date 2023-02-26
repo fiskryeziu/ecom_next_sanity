@@ -14,24 +14,7 @@ type TOption = {
   label: string
   value: string
 }
-const options: TOption[] = [
-  {
-    label: 'Apple',
-    value: 'apple',
-  },
-  {
-    label: 'Mango',
-    value: 'mango',
-  },
-  {
-    label: 'Banana',
-    value: 'banana',
-  },
-  {
-    label: 'Pineapple',
-    value: 'pineapple',
-  },
-]
+
 const Products = ({
   products,
   currentPage,
@@ -41,29 +24,43 @@ const Products = ({
   currentPage: any
   totalProducts: any
 }) => {
-  const [price, setPrice] = useState<number>(0)
-  const [sort, setSort] = useState<string | undefined>(undefined)
+  const [price, setPrice] = useState<string>('0')
   const router = useRouter()
 
-  const getSort = router.query?.sort ?? 'noSort'
-  const getFilter = router.query?.filter ?? 'noFilter'
+  const { query = 'all', sort = 'default', filter = 'all' } = router.query
 
-  console.log(sort === null)
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    router.push(`/products?filter=${price}&sort=${sort ?? 'asc'}`)
+    filterSearch({ filter: price })
   }
 
-  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    e.preventDefault()
-    setSort(e.target.value)
+  const filterSearch = ({
+    sort,
+    searchQuery,
+    filter,
+  }: {
+    sort?: string | 'default'
+    searchQuery?: string | 'all'
+    filter?: string | 'all'
+  }) => {
+    const path = router.pathname
+    const { query } = router
+    if (searchQuery) query.searchQuery = searchQuery
+    if (sort) query.sort = sort
+    if (filter) query.filter = filter
+
+    router.push({
+      pathname: path,
+      query: query,
+    })
   }
 
-  useEffect(() => {
-    if (sort) {
-      router.push(`/products?filter=${price}&sort=${sort}`)
-    }
-  }, [sort])
+  const sortHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    filterSearch({ sort: e.target.value })
+  }
+  const filterHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice(e.target.value)
+  }
   return (
     <div className="flex flex-col">
       <p className="p-10">
@@ -83,10 +80,10 @@ const Products = ({
             <input
               type="range"
               min={0}
-              max={10000}
-              value={price}
+              max={100000}
+              value={price === '0' ? 0 : price}
               step={1000}
-              onChange={(e) => setPrice(+e.target.value)}
+              onChange={filterHandler}
             />
             <p>Price: ${price}</p>
             <button className="px-2 py-2 bg-blue-900 text-white">Filter</button>
@@ -99,7 +96,7 @@ const Products = ({
             </div>
             <div>
               <label>Sort By</label>
-              <select onChange={onChange} defaultValue="default">
+              <select onChange={sortHandler} defaultValue="default">
                 <option selected></option>
                 <option value="asc">Price: low to high</option>
                 <option value="desc">Price: high to low</option>
@@ -118,11 +115,9 @@ const Products = ({
               itemsPerPage={PER_PAGE}
               renderPageLink={(page) =>
                 `${
-                  getSort === 'noSort' && getFilter === 'noFilter'
+                  sort === 'default' && filter === 'all'
                     ? `/products/page/${page}`
-                    : `/products/page/${page}?filter=${getFilter}&sort=${
-                        getSort ?? 'asc'
-                      }`
+                    : `/products/page/${page}?filter=${filter}&sort=${sort}`
                 }`
               }
             />
@@ -138,9 +133,8 @@ export default Products
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { filter: nFilter, sort: nSort } = context.query
 
-  let filter = nFilter ?? '0'
-  let sort = nSort ?? 'asc'
-
+  let filter = nFilter ?? 'all'
+  let sort = nSort ?? 'default'
   const { products, total } = await getProducts({
     limit: PER_PAGE,
     page: 1,
