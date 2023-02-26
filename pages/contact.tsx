@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import client, { urlFor } from '@/lib/client'
+import client from '@/lib/client'
 import { IContact } from '@/typings'
 import { GetStaticProps } from 'next'
 import { FaFacebook, FaInstagram, FaLink } from 'react-icons/fa'
-import { useRouter } from 'next/router'
 
 type TForm = {
   name: string

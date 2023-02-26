@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import getProducts from '@/lib/getProducts'
 import Card from '@/components/Card'
 import Pagination from '@/components/Pagination'
@@ -12,7 +12,7 @@ type PageProps = {
   totalProducts: number
 }
 
-export const PER_PAGE = 2
+export const PER_PAGE = 10
 
 function Page({ products, currentPage, totalProducts }: PageProps) {
   const [price, setPrice] = useState<string>('0')
@@ -139,8 +139,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  // Redirect the first page to `/category` to avoid duplicated content
-
   return {
     props: {
       products,
@@ -151,5 +149,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 export default Page
-
-//pagination 16th february

@@ -7,6 +7,7 @@ const client = sanityClient({
   apiVersion: '2023-02-03', // use current UTC date - see "specifying API version"!
   token: process.env.NEXT_PUBLIC_SANITY_TOKEN, // or leave blank for unauthenticated usage
   useCdn: true, // `false` if you want to ensure fresh data
+  ignoreBrowserTokenWarning: true
 })
 
 const builder = createImageUrlBuilder(client)

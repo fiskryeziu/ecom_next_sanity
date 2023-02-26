@@ -13,6 +13,7 @@ const Card = ({ product }: { product: IProduct }) => {
       <div className="flex flex-col gap-1 w-56">
         <div className="w-full h-56">
           <Image
+            priority
             src={urlFor(product.image[0]).url()}
             alt="trending-watch"
             width={250}

@@ -1,19 +1,13 @@
 import Card from '@/components/Card'
-import PaginationPage from '@/components/PaginatedPage'
 import Pagination from '@/components/Pagination'
-import client from '@/lib/client'
 import getProducts from '@/lib/getProducts'
 import { IProduct } from '@/typings'
-import { GetServerSideProps, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { PER_PAGE } from './page/[page]'
-type TOption = {
-  label: string
-  value: string
-}
 
 const Products = ({
   products,
