@@ -12,7 +12,7 @@ type PageProps = {
   totalProducts: number
 }
 
-export const PER_PAGE = 10
+export const PER_PAGE = 2
 
 function Page({ products, currentPage, totalProducts }: PageProps) {
   const [price, setPrice] = useState<string>('0')
@@ -121,16 +121,14 @@ function Page({ products, currentPage, totalProducts }: PageProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const page = Number(context.params?.page) || 1
-  const { filter: nFilter, sort: nSort } = context.query
-
-  let filter = nFilter ?? 'all'
-  let sort = nSort ?? 'default'
+  const { filter = 'all', sort = 'default', query = 'all' } = context.query
 
   const { products, total } = await getProducts({
     limit: PER_PAGE,
     page,
     filter,
     sort,
+    query,
   })
 
   if (!products.length) {

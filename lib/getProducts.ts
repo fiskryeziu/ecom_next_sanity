@@ -7,13 +7,15 @@ import client from "./client"
 export default async function getProducts({
     limit,
     page,
+    query,
     filter,
     sort,
 }: {
     limit: number
     page: number
-    filter: string | string[],
-    sort: string | string[]
+    query?: string | string[],
+    filter?: string | string[],
+    sort?: string | string[]
 }) {
     // Usually pagination is done by your DB, and the total is also known by the
     // DB, in this case we're using a demo json so things are simpler.
@@ -22,9 +24,9 @@ export default async function getProducts({
 
     let gQuery = '*[_type == "product"';
 
-    // if (query !== 'all') {
-    //     gQuery += ` && name match "${query}" `;
-    // }
+    if (query !== 'all') {
+        gQuery += ` && name match "${query}" `;
+    }
     if (filter !== 'all') {
         const price = Number(filter);
         gQuery += ` && price > ${price}`;

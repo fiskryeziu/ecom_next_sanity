@@ -1,5 +1,6 @@
 import { useAppContext } from '@/context/state'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import {
   FaGlobeEurope,
@@ -16,9 +17,16 @@ import Cart from './Cart'
 import MobileNavBar from './MobileNavBar'
 
 const NavBar = () => {
+  const router = useRouter()
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [search, setSearch] = useState('')
   const { cartItems, cartShow, setCartShow, open, setOpen } = useAppContext()
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    router.push(`/products?query=${search}`)
+    setIsSearchOpen(!isSearchOpen)
+  }
   return (
     <nav className="bg-[#f6f7fb] flex flex-col">
       <div className="h-10 hidden sm:flex justify-between items-center px-4">
@@ -75,7 +83,10 @@ const NavBar = () => {
                     : 'invisible top-5'
                 }`}
               >
-                <form action="" className="flex items-center justify-center">
+                <form
+                  onSubmit={submitHandler}
+                  className="flex items-center justify-center"
+                >
                   <input
                     type="text"
                     value={search}

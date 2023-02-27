@@ -125,13 +125,12 @@ const Products = ({
 export default Products
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { filter: nFilter, sort: nSort } = context.query
+  const { filter = 'all', sort = 'default', query = 'all' } = context.query
 
-  let filter = nFilter ?? 'all'
-  let sort = nSort ?? 'default'
   const { products, total } = await getProducts({
     limit: PER_PAGE,
     page: 1,
+    query,
     filter,
     sort,
   })
