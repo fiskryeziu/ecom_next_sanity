@@ -26,6 +26,7 @@ const NavBar = () => {
     e.preventDefault()
     router.push(`/products?query=${search}`)
     setIsSearchOpen(!isSearchOpen)
+    setSearch('')
   }
   return (
     <nav className="bg-[#f6f7fb] flex flex-col">
@@ -91,7 +92,7 @@ const NavBar = () => {
                     type="text"
                     value={search}
                     placeholder="search..."
-                    className="h-12 w-80"
+                    className="px-2 h-12 w-40 sm:w-56 md:w-80"
                     onChange={(e) => setSearch(e.target.value)}
                   />
                 </form>
