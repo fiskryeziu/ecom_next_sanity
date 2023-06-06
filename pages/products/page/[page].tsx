@@ -18,7 +18,7 @@ function Page({ products, currentPage, totalProducts }: PageProps) {
   const [price, setPrice] = useState<string>('0')
   const router = useRouter()
 
-  const { query = 'all', sort = 'default', filter = 'all' } = router.query
+  const { sort = 'default', filter = 'all' } = router.query
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
